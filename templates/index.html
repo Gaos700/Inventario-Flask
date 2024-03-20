@@ -3,18 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>App Flask Inventario</title>
 </head>
 <body>
-    <h1>App Flask Inventario</h1>
-    <p>Esta es una aplicación web que permite llevar un control de inventario de productos.</p>
-    <form method="get" action="/">
-        <input type="submit" value="Ver productos">
-        <input type="submit" value="Agregar producto">
-    </form>
+    <table class="table" >
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Color</th>
+                <th>Talla</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{datas}}
+            {% for dato in datas %}
+            <tr>
+                <td>{{dato.id}}</td>
+                <td>{{dato.nombre}}</td>
+                <td>{{dato.descripcion}}</td>
+                <td>{{dato.color}}</td>
+                <td>{{dato.nombre_talla}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
 
+    </table>
 
+ 
     
-  
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
