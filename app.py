@@ -35,7 +35,7 @@ def add_user():
     cursor.execute('SELECT id_talla, nombre_talla FROM talla')
     tallas = cursor.fetchall()
     connection.close()
-    #return render_template('add.html', tallas = tallas)
+    return render_template('add.html', tallas = tallas)
 # ruta para editar un producto
 @app.route('/edit/<id>', methods = ['POST', 'GET'])
 def edit(id):
@@ -60,13 +60,14 @@ def edit(id):
 #ruta para eliminar un producto
 @app.route('/delete/<id>', methods = ['POST', 'GET'])
 def delete(id):
-    connection = get_db_connection
+    connection = get_db_connection()
     cursor = connection.cursor() #cursor para ejecutar consultas en SQL
-    cursor.execute('DELETE FROM productos WHERE id = ?', (id))
+    cursor.execute('DELETE FROM productos WHERE id = ?', (id,))
     connection.commit()
     connection.close()
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    app.run(debug = True) #ejecutar la aplicacion en modo debug
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
     
