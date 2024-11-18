@@ -1,8 +1,15 @@
+import os
 from flask import Flask,render_template,request,redirect, url_for
 import sqlite3
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 
+if os.getenv('RAILWAY_ENVIRONMENT') == 'production':
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///databaseInventario.db'
 def get_db_connection():
     connection = sqlite3.connect('databaseInventario.db') #conexion a la base de datos
     connection.row_factory = sqlite3.Row #muestra los datos como objetos de fila en lugar de tuplas
